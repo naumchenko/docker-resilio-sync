@@ -61,10 +61,7 @@ if [ -z $RSLSYNC_USER ] ; then
       "overwrite_changes" : $RSLSYNC_CHANGES_OVERWRITE, // restore modified files to original version, ONLY for Read-Only folders
       "known_hosts" : // specify hosts to attempt connection without additional search
       [
-          if [ -z $RSLSYNC_KNOWN_HOSTS ]; then
-             RSLSYNC_PASS=`date +%s | sha256sum | base64 | head -c 10 ; echo`
-             echo "RSLSYNC_PASS not set, password generated, use "$RSLSYNC_PASS" as password"
-          fi
+          $RSLSYNC_KNOWN_HOSTS
       ]
     }
   ]

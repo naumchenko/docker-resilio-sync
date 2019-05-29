@@ -16,6 +16,12 @@ This container can run in two different mode:
 
 # Global settings
 
+
+- RSLSYNC_USE_TRACKER
+- RSLSYNC_SEARCH_LAN
+- RSLSYNC_CHANGES_OVERWRITE
+- RSLSYNC_KNOWN_HOSTS='"192.168.1.1:33333", "192.168.1.2:33333", "192.168.1.3:33333"'
+
 These setting applies to both web gui and sync mode
 
 ### RSLSYNC_NAME
@@ -28,7 +34,7 @@ This will start a container with then name **database**
 
 ### RSLSYNC_TRASH
 
-This variable defines if files removed from sync slaves should be put in an archive folder for a time defined by the variable **RSLSYNC&#95;TRASH&#95;TIME** before removed. 
+This variable defines if files removed from sync slaves should be put in an archive folder for a time defined by the variable **RSLSYNC&#95;TRASH&#95;TIME** before removed.
 
 Default value is **true**, to disable this feature add
 
@@ -41,7 +47,7 @@ to the docker start command
 This variable defines how many days a file will be kept in the achive folder before it is removed. The variable is defined i days and the default value is 30 days. To change the time so achive files are saved 1 week add
 
 	-e RSLSYNC_TRASH_TIME=7
-	
+
 to the docker start command.
 
 ### RSLSYNC_SIZE
@@ -61,14 +67,14 @@ Inside the container the /data is the default sync directory, to link this to a 
 To sync the the directory /home/joe you can run
 
 	 docker run -d -v /home/joe:/data -p 33333:33333 nimmis/resilio-sync
-	 	
+
 # web gui mode
 
 This setting activates a web gui to configure the Resilio Sync client
 
 ### RSLSYNC_USER
 
-This variable defines the username used to login to the web interface. 
+This variable defines the username used to login to the web interface.
 
 **Setting this variable activates the web gui mode.**
 
@@ -128,14 +134,13 @@ press CTRL-C to exit log
 
 ## run container on more sync nodes
 
-To get the other nodes to sync with the first, they have to have the same secret key. 
-You add the key with -e RSLSYNC_SECRET=<secret key>, start with the secret code created 
-by the first sync container. The local director does not have to be the same as on the 
+To get the other nodes to sync with the first, they have to have the same secret key.
+You add the key with -e RSLSYNC_SECRET=<secret key>, start with the secret code created
+by the first sync container. The local director does not have to be the same as on the
 first container but all sub-folders will be the same. So starting a second sync container
 on another docker machine using local directory /home/you/sync-backup and using the secret
-key obtained from the first sync node example above 
+key obtained from the first sync node example above
 
 	docker run -d -v /home/you/sync-backup:/data --name syncnode2 -P 33333:33333 -e RSLSYNC_SECRET=AF2INNKYP672IGIIDTDWWVUBGP2AQRFKX nimmis/resilio-sync
 
 NOTE!!!!! DO NOT USE the secret key in this example, use the one you got from the first sync node run.
-
