@@ -1,6 +1,6 @@
-FROM nimmis/alpine-glibc
+FROM alpine
 
-MAINTAINER nimmis <kjell.havneskold@gmail.com>
+MAINTAINER lilxander <alexander.naumchenko@gmail.com>
 
 ENV RSLSYNC_SIZE=1000 \
     RSLSYNC_TRASH_TIME=30 \
@@ -16,6 +16,4 @@ RUN apk update && apk upgrade && \
 
 VOLUME /data
 
-EXPOSE 33333
 EXPOSE 8888
-
